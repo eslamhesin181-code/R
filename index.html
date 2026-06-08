@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Between Us ❤️</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma;}
+
+body{
+height:100vh;
+overflow:hidden;
+background:linear-gradient(-45deg,#ff758c,#ff7eb3,#ffb199,#ffd6e0);
+background-size:400% 400%;
+animation:bg 10s ease infinite;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* 🔐 LOGIN */
+#login{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+background:rgba(0,0,0,0.4);
+}
+
+.box{
+background:rgba(0,0,0,0.3);
+padding:30px;
+border-radius:20px;
+text-align:center;
+color:white;
+width:90%;
+max-width:400px;
+backdrop-filter:blur(10px);
+}
+
+input{
+width:100%;
+padding:12px;
+margin-top:15px;
+border:none;
+border-radius:10px;
+text-align:center;
+}
+
+button{
+margin-top:15px;
+padding:12px 20px;
+border:none;
+border-radius:25px;
+cursor:pointer;
+background:white;
+color:#ff4f7b;
+}
+
+/* 💖 MAIN */
+#main{
+display:none;
+height:100%;
+justify-content:center;
+align-items:center;
+}
+
+.card{
+width:90%;
+max-width:800px;
+padding:25px;
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(15px);
+border-radius:25px;
+color:white;
+text-align:center;
+box-shadow:0 0 40px rgba(0,0,0,0.4);
+}
+
+#typed{
+white-space:pre-line;
+font-size:18px;
+line-height:1.9;
+min-height:220px;
+}
+
+/* 💬 CHAT BOX */
+#chatBox{
+margin-top:15px;
+}
+
+textarea{
+width:100%;
+padding:10px;
+border-radius:10px;
+border:none;
+resize:none;
+height:60px;
+}
+
+#messages{
+margin-top:10px;
+text-align:right;
+}
+
+/* ❤️ shake */
+.shake{
+animation:shake 0.3s;
+}
+
+@keyframes shake{
+0%{transform:translateX(0);}
+25%{transform:translateX(-5px);}
+50%{transform:translateX(5px);}
+75%{transform:translateX(-5px);}
+100%{transform:translateX(0);}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🔐 LOGIN -->
+<div id="login">
+<div class="box">
+<h2>🔐 رسالة خاصة</h2>
+<input type="password" id="pass">
+<button onclick="check()">دخول ❤️</button>
+<p id="error"></p>
+</div>
+</div>
+
+<!-- 💖 MAIN -->
+<div id="main">
+
+<div class="card">
+
+<h1>إلى رينو ❤️</h1>
+
+<div id="typed"></div>
+
+<!-- 💬 reply -->
+<div id="chatBox">
+<textarea id="reply" placeholder="اكتبي ردك هنا..."></textarea>
+<button onclick="sendReply()">إرسال 🤍</button>
+
+<div id="messages"></div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const password="reno";
+
+function check(){
+if(document.getElementById("pass").value===password){
+document.getElementById("login").style.display="none";
+document.getElementById("main").style.display="flex";
+typeWriter();
+}else{
+document.getElementById("error").innerText="كلمة السر غلط 😔";
+}
+}
+
+/* ✍️ TEXT */
+const text=`انتي مش بس حبيبتي… إنتِ الحتة الهادية اللي الدنيا كلها بتاخدني منها وأرجع لها لما بسمع صوتك بحس إن قلبي ارتاح، ولما تضحكي كأن الدنيا كلها نورت بحبك بطريقة تخلي أي يوم عادي يبقى عيد… وبوعدك أفضل كل يوم أحبك أكتر من اللي قبله بدعي ربنا اننا نرجع نفسي أفضل أحكيلك قد إيه إنتي غيرتيني، وقد إيه وجودك جنبي بيخليني أحس بالأمان حتى وأنا تايه. بحب كلامك، واهتمامك، وطريقتك اللي بتحتويني بيها من غير ما أتكلم. إنتي الشخص الوحيد اللي لما بزعل مجرد صوتك بيهون عليا كل حاجة. وأنا مهما قابلت ناس، عمري ما هلاقي حد شبهك.انتي رينو انتي بنوتي انني مراتي يعني مغيش زيك، يارب يعمري تفوقي كدا ونرجع لبعض عشان ملناش غير بعض والله وكلو بيدعي لينا حتى روان بتدعي اننا نرجع حتى الناس الي بيكرهوني وبيكرهوكي كلنا بندعي ان ربنا يفوقك وتشوفي بجد مين بيحبك اوي ومين مؤذي انا معاكي يعنري ومش هسيبك غير لما تبقي في حضني🫂❤❤❤❤❤❤😍`;
+
+let i=0;
+
+function typeWriter(){
+if(i<text.length){
+document.getElementById("typed").innerHTML+=text.charAt(i);
+
+/* 📳 vibration on important words */
+if(text.substr(i,2)==="حب" || text.substr(i,2)==="قلب"){
+navigator.vibrate?.(80);
+document.body.classList.add("shake");
+setTimeout(()=>document.body.classList.remove("shake"),200);
+}
+
+i++;
+setTimeout(typeWriter,20);
+}
+}
+
+/* 💬 reply system */
+function sendReply(){
+let val=document.getElementById("reply").value;
+if(!val) return;
+
+let msg=document.createElement("div");
+msg.innerHTML="هي: "+val;
+document.getElementById("messages").appendChild(msg);
+
+document.getElementById("reply").value="";
+}
+
+</script>
+
+</body>
+</html>
